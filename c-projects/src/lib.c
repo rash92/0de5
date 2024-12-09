@@ -2,11 +2,11 @@ int add(int a, int b) {
   return a + b;
 }
 
-char *fizzbuzz_p(int maxNum){
+char *fizzbuzz_pointer(int maxNum){
 
 }
 
-int fizzbuzz_buf(char buffer, int bufLen, int maxNum){
+int fizzbuzz_buffer(char buffer, int bufLen, int maxNum){
   for (int i=0; i<maxNum; i++){
 
   }
