@@ -2,7 +2,7 @@
 #include "lib.c"
 
 int main() {
-  int result = add(40, 2);
-  printf("40 + 2 = %d\n", result);
+  puts("attempting printing fizzbuzz");
+  fizzbuzz_print(30);
   return 0;
 }
