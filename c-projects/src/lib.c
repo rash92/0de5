@@ -33,26 +33,31 @@ char *fizzbuzz_pointer(int maxNum){
   return buffer;
 }
 
-void fizzbuzz_buffer(char *buffer, size_t bufLen, int maxNum){
-  
-  for (int i=1; i<=maxNum; i++){
+void fizzbuzz_buffer(char buffer[], size_t bufLen, int maxNum){
+  for (int i = 1; i<= maxNum; i++){
+    int check = 0;
     if (i % 15 == 0){
-      strncat(buffer, "fizzbuzz", bufLen);
-    }else if (i % 3 == 0){
-      strncat(buffer, "fizz", bufLen);
-    } else if (i % 5 == 0){
-      strncat(buffer, "buzz", bufLen);
+      check = snprintf(buffer, bufLen, "fizzbuzz, ");
+    } else if (i%5 == 0){
+      check = snprintf(buffer, bufLen, "buzz, ");
+
+    } else if (1%3 == 0){
+      check = snprintf(buffer, bufLen, "fizz, ");
     } else {
-      //can only do numbers upto 10^9
-      char str[10];
-      snprintf(str, sizeof(str), "%d", i);
-      strncat(buffer, str, bufLen);
+      check = snprintf(buffer, bufLen, "%d, ", i);
     }
-    if (i < maxNum){
-      strncat(buffer, ", ", bufLen);
+    if (check < 0 || check > bufLen) {
+      puts("buffer too small to contain answer string");
+      return;
     }
+    buffer += check;
+    bufLen -= check;
   }
-  strncat(buffer, ".", bufLen);
+  buffer -= 2;
+  bufLen -= 2;
+
+  snprintf(buffer, bufLen, ".");
+
 }
 
 void fizzbuzz_print(int maxNum){

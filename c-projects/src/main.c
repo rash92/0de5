@@ -6,7 +6,7 @@ int main() {
   fizzbuzz_print(30);
   puts("attempting buffer version of fizzbuzz");
   char result[1000] = {0};
-  fizzbuzz_buffer(result, sizeof(result), 50);
+  fizzbuzz_buffer(result, sizeof(result), 10);
   printf("%s\n", result);
   puts("attempting pointer version of fizzbuzz");
   char *buffer = fizzbuzz_pointer(50);
