@@ -7,7 +7,6 @@ int add(int a, int b) {
 }
 
 char *fizzbuzz_pointer(int maxNum){
-  int maxCharStringLen;
   int bufLen = 1000;
   // int bufLen = ((1 + maxNum / 15)*strlen("fizzbuzz, ") + (1 + maxNum / 3)*strlen("fizz, ") + (1 + maxNum / 5)* strlen("buzz, ") + maxNum*10)*sizeof(char);
   char *buffer = malloc(bufLen);
@@ -72,4 +71,38 @@ void fizzbuzz_print(int maxNum){
       printf("%d\n", i);
     }
   }
+}
+
+int prime_sieve(int *ansBuffer, int upto){
+  int numElems = upto-1;
+  int all_nums[numElems];
+
+  // create array with all nums from 2 to n
+  for (int i=2; i<=upto; i++){
+    all_nums[i-2] = i;
+  }
+  
+  // remove elements that are multiples of the first element, except the first element itself.
+  for (int startIndex = 0; startIndex < numElems; startIndex++){
+    int currentCheck = all_nums[startIndex];
+    if (currentCheck == 0){
+      continue;
+    }
+    for (int i=startIndex+1; i<numElems; i++ ){
+      if (all_nums[i] % currentCheck == 0 && all_nums[i] != 0){
+        all_nums[i] = 0;
+      }
+    }
+  }
+  
+  //add ans to buffer passed in by checking for zeros
+  int bufCounter = 0;
+  for (int i=0; i< numElems; i++){
+    if (all_nums[i] != 0){
+      ansBuffer[bufCounter] = all_nums[i];
+      bufCounter++;
+    }
+  }
+
+  return bufCounter;
 }
