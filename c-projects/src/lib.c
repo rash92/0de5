@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <stdbool.h>
 
 int add(int a, int b) {
   return a + b;
@@ -105,4 +106,51 @@ int prime_sieve(int *ansBuffer, int upto){
   }
 
   return bufCounter;
+}
+
+void wordify(char buffer[], int bufLen, int number){
+  // single digit to string
+  char *digitWords[] = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+  char *tensWords[] = {"", "ten", "twenty", "thirty", "fourty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+  // last two digits
+
+  int lastDigit = number % 10;
+  int secondLastDigit = (number % 100 - lastDigit)/10;
+  bool endIn0 = false;
+  bool endIn00 = false;
+  bool teen = false;
+  
+  if (lastDigit == 0) endIn0 = true;
+  if (lastDigit == 0 && secondLastDigit == 0) endIn00 = true;
+  if (secondLastDigit == 1 && lastDigit != 0) teen = true;
+  char suffix[10] = {0};
+
+  // teens case
+  if (teen){
+    if (lastDigit == 1){
+      snprintf(suffix,10, "eleven");
+    } else if (lastDigit == 2){
+      snprintf(suffix,10, "twelve");
+    } else if (lastDigit == 3){
+      snprintf(suffix,10, "thirteen");
+    } else if (lastDigit == 5){
+      snprintf(suffix, 10, "fifteen");
+    } else{
+      strncat(suffix, digitWords[lastDigit], 10);
+      strncat(suffix, "teen", 10);
+    }
+  }
+
+  // tens case
+  if (endIn0){
+    snprintf(suffix, 10, tensWords[secondLastDigit]);
+  }
+
+  int numDigits = 0;
+  if ((endIn0 || teen) && number / 100 == 0){
+    snprintf(buffer, bufLen, suffix);
+    return;
+  }
+  
+  return;
 }

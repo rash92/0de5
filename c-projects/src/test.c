@@ -31,9 +31,37 @@ TEST(test_string_assert) {
   ASSERT_STR_EQ("hello", "hello");
 }
 
+TEST(test_wordify){
+  char buffer[100] = {""};
+  wordify(buffer, 100, 100);
+  ASSERT_STR_EQ(buffer, "one hundred");
+  wordify(buffer, 100, 20);
+  ASSERT_STR_EQ(buffer, "twenty");
+  wordify(buffer, 100, 10);
+  ASSERT_STR_EQ(buffer, "ten");
+  wordify(buffer, 100, 50);
+  ASSERT_STR_EQ(buffer, "fifty");
+  wordify(buffer, 100, 1523);
+  ASSERT_STR_EQ(buffer, "one thousand five hundred and twenty three");
+  wordify(buffer, 100, 13);
+  ASSERT_STR_EQ(buffer, "thirteen");
+  wordify(buffer, 100, 1000000);
+  ASSERT_STR_EQ(buffer, "one million");
+  wordify(buffer, 100, 15);
+  ASSERT_STR_EQ(buffer, "fifteen");
+  wordify(buffer, 100, 12);
+  ASSERT_STR_EQ(buffer, "twelve");
+  wordify(buffer, 100, 11);
+  ASSERT_STR_EQ(buffer, "eleven");
+  wordify(buffer, 100, 19);
+  ASSERT_STR_EQ(buffer, "nineteen");
+
+}
+
 int main() {
   // Add a `RUN_TEST` line for each test function
   RUN_TEST(test_add);
   RUN_TEST(test_string_assert);
+  RUN_TEST(test_wordify);
   return failed;
 }
